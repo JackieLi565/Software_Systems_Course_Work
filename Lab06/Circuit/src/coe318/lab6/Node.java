@@ -1,17 +1,19 @@
 package coe318.lab6;
-import java.util.ArrayList;
+
 
 public class Node {
 
-    private ArrayList <Node> nodes = new ArrayList <Node>();
+    private int nodeID;
+    private static int total_node = 0;
 
     public Node() {//test
-
+        this.nodeID = total_node;
+        total_node++;
     } 
 
     @Override
     public String toString() {
-        return "l";
+        return Integer.toString(nodeID);
     }
 
 }
