@@ -3,12 +3,11 @@ package coe318.lab6;
 
 public class Node {
 
-    private int nodeID;
-    private static int total_node = 0;
+    public int nodeID;
+    public static int total_node = 0;
 
     public Node() {//test
-        this.nodeID = total_node;
-        total_node++;
+        this.nodeID = total_node++;
     } 
 
     @Override

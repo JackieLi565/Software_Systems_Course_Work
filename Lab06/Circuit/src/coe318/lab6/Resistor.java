@@ -2,8 +2,8 @@ package coe318.lab6;
 
 public class Resistor {//test
 
-    private double resistance;
-    private int resistorID;
+    public double resistance;
+    public int resistorID;
     public static int total_resistors = 1;
     private Node node1, node2;
 
@@ -24,12 +24,13 @@ public class Resistor {//test
     }
 
     public Node [] getNodes() {
-        Node[] nodes = {node1, node2};
+        Node[] nodes = {node1, node2}; //array of objects (nodes)
         return nodes;
     }
 
     public String toString() {
         String out = "R" + resistorID + " " + node1 + " " + node2 + " " + resistance;
+
         return out;
     }
 }
