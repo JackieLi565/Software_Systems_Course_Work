@@ -7,6 +7,7 @@ public class Node {
     public static int total_node = 0;
 
     public Node() {//test
+
         this.nodeID = total_node++;
     } 
 

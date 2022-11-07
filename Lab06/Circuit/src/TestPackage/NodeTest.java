@@ -14,9 +14,11 @@ public class NodeTest {
 
     @Test
     public void TestNode() { 
-        assertEquals(0, n1.nodeID);
-        assertEquals(1, n2.nodeID);
-        assertEquals(2, n3.nodeID);
+        assertEquals("Passed",0, n1.nodeID);
+        assertEquals("Passed",1, n2.nodeID);
+        assertEquals("Passed",2, n3.nodeID);
     }
+
+
     
 }

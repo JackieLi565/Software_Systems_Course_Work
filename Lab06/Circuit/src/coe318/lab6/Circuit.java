@@ -24,6 +24,7 @@ public class Circuit {
 
     }
 
+    @Override
     public String toString() {
         String print = "";
 
