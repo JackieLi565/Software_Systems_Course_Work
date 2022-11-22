@@ -1,10 +1,11 @@
 package coe318.lab7;
 
 public class VoltageSource {
-    private Node [] nodes = new Node [2];
-    private double voltage;
+    public Node [] nodes = new Node [2];
+    public double voltage;
     private int voltageID;
     public static int total_vs = 1;
+    
 
     public VoltageSource (double voltage, Node node1, Node node2) {
         if (voltage == 0) {

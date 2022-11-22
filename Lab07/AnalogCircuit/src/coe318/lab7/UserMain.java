@@ -3,26 +3,29 @@ package coe318.lab7;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class UserMain {
-    //for location count
+    // for location count
     static int rCount = 0;
     static int vCount = 0;
-    //user input
+    // user input
     static Scanner user = new Scanner(System.in);
-    //arraylists
-    static ArrayList <Node> tNodes = new ArrayList <>();
-    static ArrayList <Resistor> tResistors = new ArrayList <>();
-    static ArrayList <VoltageSource> tVoltges = new ArrayList <>();
-    static Circuit crkt = Circuit.getInstance(); //creates 1 circuit obj singleton design
+    // arraylists
+    static ArrayList<Node> tNodes = new ArrayList<>();
+    static ArrayList<Resistor> tResistors = new ArrayList<>();
+    static ArrayList<VoltageSource> tVoltges = new ArrayList<>();
+    static Circuit crkt = Circuit.getInstance(); // creates 1 circuit obj singleton design
+
     public static void main(String[] args) {
         boolean condition = true;
         AskNode();
-        //loop spice/exist
+        // loop spice/exist
         while (condition == true) {
-            System.out.println("\nWould you like to add a resistor (R) or a voltage source (V)\n--To print out your circuit input 'Spice'\n--To exist the program input 'end'");
+            System.out.println(
+                    "\nWould you like to add a resistor (R) or a voltage source (V)\n--To print out your circuit input 'Spice'\n--To exist the program input 'end'");
             String choice = user.next().toLowerCase();
 
-            switch(choice.toLowerCase()) {
+            switch (choice.toLowerCase()) {
                 case "v":
                     System.out.println("Please enter voltage magnitude:");
                     Askcomponent("v");
@@ -37,47 +40,58 @@ public class UserMain {
                     break;
                 case "end":
                     condition = false;
+                    System.out.println("All Done");
                     break;
                 default:
                     System.out.println("You did not enter a correct value.");
             }
         }
-    
+
     }
 
-    //amount of nodes
+    // amount of nodes
     public static void AskNode() {
-        //ask for nodesamt
+        // ask for nodesamt
         System.out.println("How many nodes would you like in your circuit? ");
         int choice = user.nextInt();// ask for amount of nodes
-        //creates the nodes
+        // creates the nodes
         for (int i = 0; i < choice; i++) {
             tNodes.add(new Node());
         }
     }
-    //adding either a resistor or a voltage to the circuit
+
+    // adding either a resistor or a voltage to the circuit
     public static void Askcomponent(String type) {
-        double ComponentMagnitude  = user.nextDouble();
+        boolean add = true;
+        double ComponentMagnitude = user.nextDouble();
+        int nodeP = nodey(true);
+        int nodeN = nodey(false);
 
-            int nodeP = nodey(true);
-            int nodeN = nodey(false);
+        
+        if (conditions(nodeP, nodeN)) {
+            if (type.equals("r")) {
+                tResistors.add(new Resistor(ComponentMagnitude, tNodes.get(nodeP), tNodes.get(nodeN)));
+                crkt.Radd(tResistors.get(rCount++));
+                System.out.println("->Resistor successfully added\n");
 
-            if (conditions(nodeP, nodeN)) {
-                if (type.equals("r")) {
-                    tResistors.add(new Resistor(ComponentMagnitude, tNodes.get(nodeP), tNodes.get(nodeN)));
-                    crkt.Radd(tResistors.get(rCount++));
-                    System.out.println("->Resistor successfully added\n");
-
+            }
+            if (type.equals("v")) {
+                tVoltges.add(new VoltageSource(ComponentMagnitude, tNodes.get(nodeP), tNodes.get(nodeN)));
+                if (vCount >= 1) {
+                    add = sameCOMP(nodeP, nodeN);
+                    
                 }
-                if (type.equals("v")) {
-                    tVoltges.add(new VoltageSource(ComponentMagnitude, tNodes.get(nodeP), tNodes.get(nodeN)));
+                if (add) {
                     crkt.Vadd(tVoltges.get(vCount++));
                     System.out.println("->Voltage source successfully added\n");
-                }   
+                }
+                
+            }
         }
-        
+
     }
-    //meet conditions 
+
+    // meet conditions
     public static boolean conditions(int nodeP, int nodeN) {
         if (nodeP > tNodes.size() || nodeN >= tNodes.size()) {
             System.out.println("Node does not exist in the list, please try again");
@@ -89,8 +103,22 @@ public class UserMain {
             return true;
         }
     }
+    
+    //checks for a duplicate voltage at the same node.
+    public static boolean sameCOMP(int nodeP, int nodeN) {
+        double compare = tVoltges.get(0).voltage;
+        for (int i = 1; i < tVoltges.size(); i++) {
+            if (compare == -tVoltges.get(i).voltage) {
+                if (tVoltges.get(0).nodes[0] == tVoltges.get(i).nodes[1] && tVoltges.get(0).nodes[1] == tVoltges.get(i).nodes[0]) {
+                    System.out.println("->Duplicate Voltage source");
+                    return false;
+                }
+            }  
+        }
+        return true;
+    }
 
-    //asks for how the comp is connected and its polarity
+    // asks for how the comp is connected and its polarity
     public static int nodey(boolean check) {
         int NodePolarity;
 
@@ -98,12 +126,11 @@ public class UserMain {
             System.out.print("The node connected to the positive terminal: ");
             NodePolarity = user.nextInt();
             return (NodePolarity);
-        }
-        else {
+        } else {
             System.out.print("The node connected to the negative terminal: ");
             NodePolarity = user.nextInt();
             return (NodePolarity);
         }
-    }  
+    }
 
 }

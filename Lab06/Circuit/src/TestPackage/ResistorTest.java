@@ -24,7 +24,7 @@ public class ResistorTest {
     @Test
     public void IllegalArgs() {
         assertThrows("Passed",IllegalArgumentException.class, 
-        () -> { //lambda (function from js)
+        () -> { 
             Resistor RNegative = new Resistor(-50, n1, n2);
             Resistor RShorted = new Resistor(0, n1, n2);
         }

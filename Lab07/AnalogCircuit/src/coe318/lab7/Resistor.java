@@ -3,7 +3,7 @@ package coe318.lab7;
 public class Resistor {
 
     private Node [] nodes = new Node [2];
-    private double resistance;
+    public double resistance;
     private int resistorID;
     public static int total_resistors = 1;
 
