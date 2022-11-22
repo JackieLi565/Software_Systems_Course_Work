@@ -1,7 +1,7 @@
 package TestPackage;
-import org.junit.Test;
 
 import coe318.lab6.*;
+import org.junit.Test;
 import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
@@ -17,8 +17,5 @@ public class NodeTest {
         assertEquals("Passed",0, n1.nodeID);
         assertEquals("Passed",1, n2.nodeID);
         assertEquals("Passed",2, n3.nodeID);
-    }
-
-
-    
+    } 
 }
