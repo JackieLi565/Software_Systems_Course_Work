@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Circuit {
 
-    ArrayList<Object> componets;
+    ArrayList<Object> componets;//polymorph resistor and voltage are child class to the obj class
 
     private static Circuit instance = null;
 

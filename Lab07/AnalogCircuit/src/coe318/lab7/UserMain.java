@@ -32,6 +32,7 @@ public class UserMain {
                     Askcomponent("r");
                     break;
                 case "spice":
+                    System.out.println("-=+ Your Circuit +=-");
                     System.out.println(crkt);
                     break;
                 case "end":
@@ -41,7 +42,7 @@ public class UserMain {
                     System.out.println("You did not enter a correct value.");
             }
         }
-        
+    
     }
 
     //amount of nodes
@@ -65,12 +66,13 @@ public class UserMain {
                 if (type.equals("r")) {
                     tResistors.add(new Resistor(ComponentMagnitude, tNodes.get(nodeP), tNodes.get(nodeN)));
                     crkt.Radd(tResistors.get(rCount++));
+                    System.out.println("->Resistor successfully added\n");
 
                 }
                 if (type.equals("v")) {
                     tVoltges.add(new VoltageSource(ComponentMagnitude, tNodes.get(nodeP), tNodes.get(nodeN)));
                     crkt.Vadd(tVoltges.get(vCount++));
-    
+                    System.out.println("->Voltage source successfully added\n");
                 }   
         }
         
@@ -102,11 +104,6 @@ public class UserMain {
             NodePolarity = user.nextInt();
             return (NodePolarity);
         }
-    }
-    
-    
-
-   
-    
+    }  
 
 }
